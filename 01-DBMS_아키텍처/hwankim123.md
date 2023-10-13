@@ -261,10 +261,10 @@ SQL 지연이 발생했을 땐 우선 실행 계획을 살펴봐야 합니다.
     - 추적성: 문제가 발생했을 때 어떤 진입점에서 발생했는지 파악 가능
 - 간단한 구현 요약: MDC에 호출된 핸들러 정보와 발생한 쿼리 정보를 넣어 진입점 로깅을 하는 방식
     - MDC : slf4j에서 제공해주는, 실행중인 쓰레드 단위의 메타정보를 넣고 관리하는 공간. ThreadLocal로 구현된 map(key, value) 형태
-    1. HandlerInterceptor를 이용해서 발생한 요청이 어느 핸들러에 대한 요청인지 그 정보를 MDC에 넣어줌
-    2. DB 접근 시 SQL 정보와 1 과정에서 넣어준 짐입점 정보를 합침
-    3. 결과 로그(출처: https://techblog.woowahan.com/13429/
-       ![스크린샷-2023-08-23-오후-10 19 23-1024x195](https://github.com/devcourse-study/SQL-Level-Up-study/assets/35731532/5063add0-bf55-47d3-ab6e-e3eaa33aa9a8)
+        1. HandlerInterceptor를 이용해서 발생한 요청이 어느 핸들러에 대한 요청인지 그 정보를 MDC에 넣어줌
+        2. DB 접근 시 SQL 정보와 1 과정에서 넣어준 짐입점 정보를 합침
+        3. 결과 로그(출처: https://techblog.woowahan.com/13429/
+           ![스크린샷-2023-08-23-오후-10 19 23-1024x195](https://github.com/devcourse-study/SQL-Level-Up-study/assets/35731532/5063add0-bf55-47d3-ab6e-e3eaa33aa9a8)
 
 - 읽고나서 든 생각: 왜 AOP를 쓰지 않았을까?(왜 더 단순한 방법이 아니라 이렇게 했을까?)
     - AOP로 했으면 모든 진입 메서드마다 다 어노테이션을 달아야 함
