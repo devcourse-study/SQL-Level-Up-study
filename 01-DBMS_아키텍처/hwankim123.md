@@ -14,7 +14,7 @@
 
 ## 1. DBMS 아키텍처 개요
 
-사진 첨부
+![image](https://github.com/devcourse-study/SQL-Level-Up-study/assets/35731532/601101af-b991-408b-81dd-3e2c4bbae14d)
 
 ### 1-1. 쿼리 평가 엔진
 
@@ -146,7 +146,7 @@ RDB가 숨기고 있는 내부 절차를 들여다봐야 하는 것은 이러한
 
 ### 3-2. 데이터에 접근하는 방법은 어떻게 결정할까?
 
-사진 첨부
+![image](https://github.com/devcourse-study/SQL-Level-Up-study/assets/35731532/877c6800-01b2-4e2e-8ad0-8b1ffe7b38da)
 
 데이터 접근 절차를 결정하는 모듈은 쿼리 평가 엔진입니다. 쿼리 평가 엔진은 추가로 파서와 옵티마이저와 같은 여러개의 서브 모듈로 구성됩니다.
 
