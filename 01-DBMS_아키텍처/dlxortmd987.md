@@ -1,7 +1,8 @@
 # 01 강 DBMS 아키텍처 개요
 ---
 
-![[Pasted image 20231009212047.png]]
+<img width="737" alt="Pasted image 20231009212047" src="https://github.com/devcourse-study/SQL-Level-Up-study/assets/58359383/242385fc-b5cf-4daf-9534-53ffd7564bab">
+
 
 ## 쿼리 평가 엔진
 - SQL 구문 분석 및 데이터 접근 순서 결정
@@ -52,7 +53,8 @@
 - 성능을 위해 비동기로 갱신 처리 진행
 	- 갱신은 비교적 오래 걸리는 작업으로 사용자에게 일단 완료 메시지를 보내고 내부적으로 갱신 수행
 
-![[Pasted image 20231010144256.png]]
+<img width="738" alt="Pasted image 20231010144256" src="https://github.com/devcourse-study/SQL-Level-Up-study/assets/58359383/c394a43d-c906-4ce2-9f7c-147c5c87e441">
+
 
 ## 메모리의 휘발성
 > 메모리는 전원이 꺼지면 데이터를 저장할 수 없다.
@@ -115,7 +117,8 @@
 ### 플랜 평가는 뭘까?
 - 실행 계획들을 받아 최적의 실행 결과를 선택하는 주체
 
-![[Pasted image 20231010152023.png]]
+<img width="639" alt="Pasted image 20231010152023" src="https://github.com/devcourse-study/SQL-Level-Up-study/assets/58359383/8a30a937-e966-4ead-8c7b-2ab36df40a7e">
+
 
 
 ## 옵티마이저는 만능일까?
@@ -132,7 +135,7 @@
 
 ## 실행 계획은 어떻게 확인할까?
 
-![[Pasted image 20231010161338.png]]
+<img width="627" alt="Pasted image 20231010161338" src="https://github.com/devcourse-study/SQL-Level-Up-study/assets/58359383/d5bc82ff-d7ec-4999-a52e-727a7e6e5328">
 
 - 실행 SQL
 ``` SQL
@@ -142,7 +145,7 @@ FROM Photo
 ```
 
 - 결과
-![[스크린샷 2023-10-10 오후 4.18.30.png]]
+<img width="1378" alt="스크린샷 2023-10-10 오후 4 18 30" src="https://github.com/devcourse-study/SQL-Level-Up-study/assets/58359383/c09d7c99-916a-416e-b236-b5b1b3e0100a">
 - 위의 결과에서 3가지 열을 확인할 수 있다.
 	1. 조작 대상 객체 (Photo)
 	2. 객체에 대한 조작의 종류 (ALL)
@@ -165,7 +168,7 @@ WHERE photoIdx = 100;
 ```
 
 - 결과
-![[스크린샷 2023-10-10 오후 4.33.14.png]]
+<img width="1289" alt="스크린샷 2023-10-10 오후 4 33 14" src="https://github.com/devcourse-study/SQL-Level-Up-study/assets/58359383/25edab52-1a01-4822-86c2-716488f338fc">
 - WHERE 조건을 추가했더니 `type`열이 `const`로 변경되었다.
 - 그리고 `possible_keys`열에는 `PRIMARY`로 되어있는 것을 발견할 수 있고, 레코드 수가 `1`인 것을 확인할 수 있다.
 - 해당 결과는 인덱스를 이용하는 것을 나타내는데, 인덱스로 검색하면 검색되는 레코드 수가 적으면 일반적으로는 테이블 풀 스캔보다 **빠르다.**
@@ -207,3 +210,6 @@ WHERE photoIdx = 100;
 - 단순히 책 내용을 공유하다보니 얘기할 거리가 부족한 느낌이다.
 - 이번 파트의 경우에는 너무 개략적인 내용이라 할 얘기가 없는 것 같다.
 - 둘째날에 어떤 것을 해야 할지 모르겠다.
+
+## 블로그 포스팅
+https://taek-coding.tistory.com/28
