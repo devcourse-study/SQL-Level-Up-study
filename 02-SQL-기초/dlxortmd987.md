@@ -2,8 +2,9 @@
 
 [7강 조건 분기, 집합 연산, 윈도우 함수, 갱신](#7강-조건-분기,-집합-연산,-윈도우-함수,-갱신)
 
-[궁금한점](궁금한점)
+[궁금한점](#궁금한점)
 
+[블로그 주소](!https://taek-coding.tistory.com/29)
 
 # 개요
 ---
@@ -605,3 +606,9 @@ FROM table2;
 윈도우 함수의 효용성에 대해 조사하면 좋을 것 같다.
 
 프로그래머스 SQL 문제 5문제 정도 풀고 공유하기
+
+- https://school.programmers.co.kr/learn/courses/30/lessons/131117
+- https://school.programmers.co.kr/learn/courses/30/lessons/144856
+- https://school.programmers.co.kr/learn/courses/30/lessons/131536
+- https://school.programmers.co.kr/learn/courses/30/lessons/133027
+- https://school.programmers.co.kr/learn/courses/30/lessons/131124
