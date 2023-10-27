@@ -112,7 +112,8 @@ GROUP BY로 데이터를 자르는 시점에는 각 집합에 3개의 요소가 
 
 Oracle로 살펴본 실행계획은 다음과 같습니다.
 
-(사진)
+![Oracle 실행 계획](https://github.com/devcourse-study/SQL-Level-Up-study/assets/35731532/aa040705-b952-492b-b7f4-345044ea4302)
+
 
 NonAggTbl 테이블을 모두 스캔하고 GROUP BY로 집약을 수행하는 단순한 실행 계획입니다. 중요한것은 GROUP BY의 집약 조작에 ‘해시’ 알고리즘을 사용했다는 것입니다. 경우에 따라서는 정렬을 사용하기도 하는데, 최근에는 집약에서 정렬보다 해시를 사용하는 경우가 많습니다. 이는 GROUP BY 구에 저장되어 있는 필드를 해시 함수를 사용해 해시 키로 변환하고, 같은 해시 키를 가진 그룹을 모아 집약하는 방법입니다. 정렬을 사용한 방법보다 빠르므로 많이 사용되고 있습니다. 특히 해시 성질상 GROUP BY의 유일성이 높으면 더 효율적으로 작동합니다.
 
@@ -140,7 +141,7 @@ GROUP BY와 관련되 성능 주의점을 짚어봅시다. 정렬과 해시 모�
 | 제품3 | 71 | 100 | 1000 |
 | 제품4 | 0 | 99 | 8900 |
 
-이제 이런 제품 중에서 0~100세까지 모든 연령이 가지고 놀 수 있는 제품을 구하는 문제를 풀여야 합니다. 예를 들어 제품 1의 경우 2개의 레코드를 합치면 0~100세까지 모든 연령이 가지고 놀 수 있어 조건에 만족합니다. 이렇게 1개의 레코드로 전체를 커버하지 못해도 여러 개의 코드를 조합해 커버할 수 있다면 ‘합쳐서 하나’라고 하는 것이 문제의 주제입니다.
+이제 이런 제품 중에서 0 ~ 100세까지 모든 연령이 가지고 놀 수 있는 제품을 구하는 문제를 풀여야 합니다. 예를 들어 제품 1의 경우 2개의 레코드를 합치면 0 ~ 100세까지 모든 연령이 가지고 놀 수 있어 조건에 만족합니다. 이렇게 1개의 레코드로 전체를 커버하지 못해도 여러 개의 코드를 조합해 커버할 수 있다면 ‘합쳐서 하나’라고 하는 것이 문제의 주제입니다.
 
 ```sql
 SELECT product_id
@@ -228,15 +229,15 @@ D     | 3
 
 ```sql
 SELECT CASE WHEN age < 20 THEN '어린이'
-				WHEN age BETWEEN 20 AND 69 THEN '성인'
-				WHEN age >= 70 THEN '노인'
-				ELSE NULL END AS age_class,
-				COUNT(*)
+		WHEN age BETWEEN 20 AND 69 THEN '성인'
+		WHEN age >= 70 THEN '노인'
+		ELSE NULL END AS age_class,
+		COUNT(*)
 FROM Persons
 GROUP BY CASE WHEN age < 20 THEN '어린이'
-				WHEN age BETWEEN 20 AND 69 THEN '성인'
-				WHEN age >= 70 THEN '노인'
-				ELSE NULL END;
+		WHEN age BETWEEN 20 AND 69 THEN '성인'
+		WHEN age >= 70 THEN '노인'
+		ELSE NULL END;
 
 //실행 결과
 age_class | COUNT(*)
@@ -251,6 +252,9 @@ age_class | COUNT(*)
 그럼 GROUP BY 구에서 CASE 식을 사용하면 실행 계획은 어떻게 될까요? MySQ 기준으로 살펴봅시다.
 
 <img width="823" alt="스크린샷 2023-10-27 오후 6 34 21" src="https://github.com/devcourse-study/SQL-Level-Up-study/assets/35731532/da949fbc-82b1-40cf-9822-ed96e79bc794">
+
+이 실행 계획 또한 다른 DBMS과는 다른 결과를 보이므로, PostgreSQL 기준의 실행 계획도 살펴보겠습니다.
+![PostgreSQL 실행 계획](https://github.com/devcourse-study/SQL-Level-Up-study/assets/35731532/6e6dc73d-e1e6-41ee-a23e-fea01724d75e)
 
 GROUP BY 구에서 CASE 식 또는 함수를 사용해도 실행계획에는 영향이 없다는 것을 알 수 있습니다. 필드에 연산을 추가한 식을 키로 한다면 CPU 오버헤드가 걸릴 것이지만, 이또한 데이터 접근과는 무관합니다. 사실 GROUP BY의 실행 계획은 성능적인 측면에서, 해시(또는 정렬)에 사용되는 워킹 메모리의 용량에 주의하라는 것 외에는 따로 할 말이 없습니다.
 
