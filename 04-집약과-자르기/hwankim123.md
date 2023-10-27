@@ -119,9 +119,6 @@ NonAggTbl 테이블을 모두 스캔하고 GROUP BY로 집약을 수행하는 �
 
 GROUP BY와 관련되 성능 주의점을 짚어봅시다. 정렬과 해시 모두 메모리를 많이 사용하므로, 충분한 해시용(또는 정렬용) 워킹 메모리가 확보되지 않으면 스왑이 발생해 굉장히 느려집니다. 
 
-> MySQL이 정렬과 해시를 위해 사용하는 메모리는 무엇인지, 작동 원리는 무엇인지  
-> [https://velog.io/@rnjsrntkd95/MySQL-Group-By-성능-개선-with-Distinct](https://velog.io/@rnjsrntkd95/MySQL-Group-By-%EC%84%B1%EB%8A%A5-%EA%B0%9C%EC%84%A0-with-Distinct)
-
 
 따라서 연산 대상 레코드 수가 많은 GROUP BY 구(또는 집약 함수)를 사용하는 SQL에서는 충분한 성능 검증(실제 환경에서 어떻게 되는지 부하 검증)을 실행해줘야 합니다.
 
