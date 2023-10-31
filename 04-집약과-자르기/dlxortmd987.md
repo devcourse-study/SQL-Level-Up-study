@@ -412,3 +412,33 @@ WHERE 절이 없는 경우 그룹의 수만큼 레코드를 읽어 전체를 읽
 	FROM test
 	GROUP BY col1, col2;
 	```
+
+## MySQL에서 GROUP BY에 인덱스를 어떻게 적용하는걸까?
+
+MySQL에서 GROUP BY 처리를 할 때 먼저 정렬을 한 후 정렬된 결과를 그룹핑하는 형태로 처리합니다.
+
+이 때 GROUP BY 키에 인덱스가 적용되어 있으면 정렬된 인덱스를 순서대로 읽으면서 그루핑 작업을 수행하게 됩니다.
+
+따라서 인덱스를 이용하면 따로 레코드의 정렬이 필요하지 않으므로 빠르게 처리할 수 있습니다.
+
+실행 계획에는 Using index for group-by로 나타납니다.
+
+이 때 인덱스 파일을 Loose Index Scan 방식으로 읽는 것입니다.
+
+하지만 AVG(), SUM(), COUNT()와 같이 모든 인덱스를 다 조사해야 하는 경우 필요한 인덱스만 읽을 수 없습니다.
+
+이 때 Tight Index Scan이라고 하는 것입니다.
+
+GROUP BY는 WHERE 절과도 연관이 있습니다.
+
+1. WHERE 조건절이 없는 경우
+	- GROUP BY나 조회하는 칼럼이 Loose Index Scan을 사용할 수 있는지에 따라 다릅니다.
+	- 만약 사용하지 못하면 Tight Index Scan을 이용하거나 정렬 과정을 거칩니다.
+2. WHERE 조건절이 있지만 검색을 위해 인덱스를 사용하지 못하는 경우
+	- GROUP BY 절은 인덱스를 사용할 수 있지만 WHERE 절에서 사용하지 못하는 경우는 먼저 GROUP BY를 위해 인덱스를 읽은 후, WHERE 조건의 비교를 위해 데이터 레코드를 읽어야 합니다.
+	- 이 때문에 Loose Index Scan은 사용할 수 없으며 Tight Index Scan을 통해 처리됩니다.
+3. WHERE 조건절이 있으며, 인덱스를 사용할 수 있는 경우
+	- 하나의 단일 쿼리가 실행되는 경우는 index_merge 이외의 경우에는 하나의 인덱스만 사용할 수 있습니다.
+	- 그래서 WHERE 절이나 GROUP BY 절 둘 중 하나만 인덱스를 사용할 수 있습니다.
+	- 보통 두 절의 칼럼이 다르다면 옵티마이저는 WHERE 절의 칼럼의 인덱스를 이용합니다.
+	- 만약 같은 경우에는 Loose Index Scan을 사용할 수 있습니다.
